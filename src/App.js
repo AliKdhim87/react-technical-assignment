@@ -1,83 +1,51 @@
-import React, { useState, useRef, useEffect } from 'react';
-import { Input } from './components/Form-Elements/Input/Input';
-import './App.css';
-import users from './users.json';
-import { filterUsers } from './utils/filter';
+import React, { useState } from "react";
+import { Input } from "./components/Form-Elements/Input/Input";
+import "./App.css";
+import users from "./users.json";
+
 function App() {
-  const [search, setSearch] = useState('');
   const onSubmitHandler = (e) => {
     e.preventDefault();
   };
-  const [display, setDisplay] = useState(false);
 
-  const wrapperRef = useRef(null);
-  useEffect(() => {
-    window.addEventListener('mousedown', handleClickOutside);
-    return () => {
-      window.removeEventListener('mousedown', handleClickOutside);
-    };
-  });
-  const handleClickOutside = (event) => {
-    const { current: wrap } = wrapperRef;
-    if (wrap && !wrap.contains(event.target)) {
-      setDisplay(false);
-    }
-  };
+  // const [password, setPassword] = useState("");
+  // const [email, setEmail] = useState("");
 
   return (
     <>
-      <div style={{ width: '50%', margin: 'auto' }}>
+      <div>
         <h1>Assignment</h1>
         <Input
+          name="search"
           onSubmit={onSubmitHandler}
-          left_icon='fa-search'
-          right_icon='fa-sort-down'
-          id='search'
-          element='input'
-          label={'Contect'}
-          placeholder='Type Or Search'
-          value={search}
-          onChange={(e) => setSearch(e.target.value)}
-          onClick={(e) => setDisplay(true)}
+          left_icon="fa-search"
+          element="input"
+          label={"Contact"}
+          placeholder="Type Or Search"
+          data={users}
+          autoComplete="off"
         />
-
-        {display && (
-          <div className={`dropdown`} ref={wrapperRef}>
-            {filterUsers(users, search).length > 0
-              ? filterUsers(users, search).map((user, index) => (
-                  <div
-                    key={index}
-                    className={`dropdown-item `}
-                    onClick={(e) => {
-                      setSearch(user.name);
-                      setDisplay(false);
-                    }}
-                  >
-                    {user.name}
-                  </div>
-                ))
-              : 'There is no match'}
-          </div>
-        )}
       </div>
-      <Input
-        onSubmit={onSubmitHandler}
-        right_icon='fa-envelope'
-        name='email'
-        element='input'
-        label={'Email'}
-        placeholder='Type Yor Email.'
-        value=''
+      {/* <Input
+        right_icon="fa-envelope"
+        name="email"
+        element="input"
+        label={"Email"}
+        placeholder="Type Yor Email."
+        onChange={(e) => setEmail(e.target.value)}
+        value={email}
+        autoComplete="off"
       />
       <Input
-        onSubmit={onSubmitHandler}
-        right_icon='fa-lock'
-        name='password'
-        element='input'
-        label={'Password'}
-        placeholder='Type Yor Password.'
-        value=''
-      />
+        right_icon="fa-lock"
+        name="password"
+        element="input"
+        label={"Password"}
+        placeholder="Type Yor Password."
+        onChange={(e) => setPassword(e.target.value)}
+        value={password}
+        autoComplete="off"
+      /> */}
     </>
   );
 }
