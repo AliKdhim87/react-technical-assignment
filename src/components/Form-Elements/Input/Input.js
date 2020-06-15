@@ -1,6 +1,6 @@
 import React, { useState } from "react";
+import { StyledInput, Label, Icon, Form } from "./InputStyled";
 
-import "./Input.css";
 const Input = (props) => {
   const [inputStyle, setInputStyle] = useState(false);
 
@@ -14,9 +14,9 @@ const Input = (props) => {
 
   const element =
     props.name === "search" ? (
-      <input
-        list="ali"
-        className={`input ${props.className}`}
+      <StyledInput
+        list="search"
+        className={` ${props.className}`}
         id={props.id}
         name={props.name}
         type={props.type}
@@ -29,8 +29,8 @@ const Input = (props) => {
         autoComplete={props.autoComplete}
       />
     ) : (
-      <input
-        className={`input ${props.className}`}
+      <StyledInput
+        className={`${props.className}`}
         id={props.id}
         name={props.name}
         type={props.type}
@@ -46,25 +46,21 @@ const Input = (props) => {
 
   return (
     <>
-      <div className="form">
-        <label
+      <Form onSubmit={props.onSubmit}>
+        <Label
           style={props.style}
           htmlFor={props.id}
           className={inputStyle ? "label-focus-mode" : ""}
         >
           {props.label}
-        </label>
-        <i
-          className={`fas ${inputStyle ? "left-icon" : "hide"} ${
-            props.left_icon
-          }`}
-        ></i>
+        </Label>
+        <Icon leftIcon className={`fas  ${props.left_icon}`}></Icon>
         {element}
 
-        <i className={`fas right-icon ${props.right_icon}`}></i>
-      </div>
+        <Icon rightIcon className={`fas ${props.right_icon}`}></Icon>
+      </Form>
 
-      <datalist id="ali">
+      <datalist id="search">
         {props.data &&
           props.data
             .sort((a, b) => a.name !== null && a.name.localeCompare(b.name))
