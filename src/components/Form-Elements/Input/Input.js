@@ -66,6 +66,7 @@ const Input = (props) => {
                       onClick={(e) => {
                         setSearch(user.name);
                         setInputStyle(true);
+                        setDisplay(false);
                       }}
                     >
                       {user.name}
