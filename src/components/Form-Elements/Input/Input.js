@@ -56,20 +56,22 @@ const Input = (props) => {
           {filterUsers(props.data, search).length <= 0 ? (
             <Li>There is no match</Li>
           ) : (
-            filterUsers(props.data, search).map(
-              (user, index) =>
-                user.name !== null && (
-                  <Li
-                    key={index}
-                    onClick={(e) => {
-                      setSearch(user.name);
-                      setInputStyle(true);
-                    }}
-                  >
-                    {user.name}
-                  </Li>
-                )
-            )
+            filterUsers(props.data, search)
+              .sort((a, b) => a.name !== null && a.name.localeCompare(b.name))
+              .map(
+                (user, index) =>
+                  user.name !== null && (
+                    <Li
+                      key={index}
+                      onClick={(e) => {
+                        setSearch(user.name);
+                        setInputStyle(true);
+                      }}
+                    >
+                      {user.name}
+                    </Li>
+                  )
+              )
           )}
         </Ul>
       )}
